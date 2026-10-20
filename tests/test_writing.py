@@ -21,6 +21,9 @@ class Tests(unittest.TestCase):
         'styles':[{'id':'academic','guide':'A guide grounded in the supplied analytical writing samples and their organization.','new_prompt':'Write a new academic essay for [audience] on [task] using verified [sources].','edit_prompt':'Edit my draft while preserving its meaning, claims and verified source citations.','source_ids':[d['id'] for d in docs]}]}
     def build(self,docs):
         with patch.object(self.lib,'ask_model',return_value=self.result(docs)):return self.lib.build()
+    def test_history_is_excluded_from_context_search(self):
+        core.write(self.lib.path('writing/history/old/guide.md'),'Historicalsecrettoken must not be searched as active context.')
+        self.assertEqual(core.context_search(self.root,'Historicalsecrettoken'),[])
     def test_upload_needs_no_metadata(self):
         d=self.upload();self.assertEqual(d['tone'],'auto');self.assertTrue(self.lib.path(d['original']).exists())
     def test_build_organizes_without_touching_originals_and_exports(self):

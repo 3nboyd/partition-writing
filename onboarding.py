@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local, browser-based onboarding for Partition. Documents stay in project-private storage."""
+"""Local browser shell and migration compatibility for Partition Writing. Documents stay in project-private storage."""
 from __future__ import annotations
 
 import argparse
@@ -32,7 +32,7 @@ MAX_FILE = 12 * 1024 * 1024
 MAX_BODY = 18 * 1024 * 1024
 MAX_TEXT = 180_000
 TONES = {"academic": "Academic", "professional": "Professional", "casual": "Conversational"}
-MEMORY_PROMPT = """I am setting up Partition, a personal assistant, and want to review the context I might transfer to it.
+MEMORY_PROMPT = """I am setting up Partition Writing, a private writing-context library, and want to review the context I might transfer to it.
 
 Please summarize only what you can actually access or confidently recall about me. Do not claim this is a complete export of saved memory. Do not invent missing details.
 
@@ -96,7 +96,7 @@ def extract_text(name: str, raw: bytes) -> str:
         try:
             from pypdf import PdfReader
         except ImportError as exc:
-            raise core.PartitionError("PDF support is not installed. Start with Start Partition Setup.command or install requirements-onboarding.txt.") from exc
+            raise core.PartitionError("PDF support is not installed. Start with Start Writing.command or install requirements-onboarding.txt.") from exc
         try:
             reader = PdfReader(io.BytesIO(raw))
             if reader.is_encrypted:
