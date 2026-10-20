@@ -26,3 +26,6 @@ __pycache__/
 
 # Generated personal writing folder and ChatGPT source files.
 /My Writing/
+
+# Local Mac launcher builds.
+*.app/

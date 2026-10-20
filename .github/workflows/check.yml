@@ -18,3 +18,11 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: python scripts/check_public.py
       - run: git diff --check
+  mac-launcher:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - run: python install_macos.py --applications "$RUNNER_TEMP/partition-apps" --codex /usr/bin/true

@@ -1,38 +1,40 @@
-# Writing model map
+# Model settings
 
-Default: **GPT-6.1 Sol / low** for classification and guide synthesis in a single
-structured-output request. Checked 2026-10-20. It handles ambiguous source types,
-mixed genres, evidence-grounded style analysis and prompt synthesis together.
+The library organizer uses **GPT-6.1 Sol / low** to classify documents and derive
+style guides in one structured-output request. Settings were checked against the
+Codex catalog and official documentation on October 20, 2026.
 
 ```mermaid
 flowchart LR
-  Upload[Batch upload] --> Extract[Local PDF/DOCX/text extraction]
-  Extract --> Sol[Sol low: classify + derive guides]
-  Guidance[Reviewed context + preferences] --> Sol
-  Sol --> Categories[Academic / personal / professional / creative]
-  Sol --> Background[Résumé / reference / needs review]
-  Categories --> Prompts[New-writing + editing prompts]
-  Prompts --> Chat[Copy to any chat]
+  Upload[Uploaded files] --> Extract[Local text extraction]
+  Extract --> Analysis[Sol: classify and derive guides]
+  Guidance[Saved preferences] --> Analysis
+  Analysis --> Folder[Organized reference folder]
+  Folder --> Project[ChatGPT Project sources]
+  Project --> Writing[Write directly in ChatGPT]
 ```
 
-The application does not run a costly agent hierarchy for each document or train
-weights. One request sees up to 40 documents with at most 16,000 characters of
-head/middle/tail excerpts per document. Full extracted text and originals stay local.
-Long or unusually varied documents may need more samples or human correction.
-Unchanged library fingerprints skip repeated analysis. This reduces unnecessary
-requests, not a hard spending cap. Timeout is six minutes; failures retain originals
-and previous guide versions, and a retry may incur additional model usage.
+Sol is the default because a mixed library can require judgment about authorship,
+audience, and differences between genres. Luna / high may be suitable for simpler
+classification tasks. The best choice will depend on the samples and results.
 
-Luna / high is a possible faster option for clear classification, but the default
-uses Sol to also synthesize nuanced guides. There is no benchmark claiming an
-absolute best writing model. Change MODEL and EFFORT in writing.py together after
-checking `codex debug models`; use a model supporting structured output in your CLI.
-No fallback silently sends your samples to a different provider.
+Analysis uses up to 40 documents, with at most 16,000 characters from the beginning,
+middle, and end of each long document. Full extracted text is retained locally and
+included in the prepared ChatGPT reference files. Guides may miss traits absent
+from the excerpts, so uncertain classifications should be reviewed.
 
-The model runs in an empty temporary directory with shell, apps, plugins, browsing,
-memories and subagents disabled; samples are stdin data. Account sign-in still
-uses Codex's standard authentication. Generated text is rendered as text, never HTML.
+Unchanged libraries skip repeat analysis. Requests time out after six minutes;
+a failed attempt can be retried without uploading again, although it may still
+count toward account usage. Exporting an existing analysis does not call a model.
 
-Sources: [official model guidance](https://learn.chatgpt.com/docs/models),
-[Codex model settings](https://learn.chatgpt.com/docs/agent-configuration/subagents),
+To change the model, edit MODEL and EFFORT in writing.py after checking
+`codex debug models`. Use a model that supports structured output in the installed
+CLI. Partition does not silently switch providers.
+
+Analysis runs in a temporary directory with shell, apps, plugins, browsing, memory
+access, and subagents disabled. Samples are passed through stdin. Normal Codex
+sign-in provides authentication.
+
+Sources: [Models](https://learn.chatgpt.com/docs/models),
+[model and reasoning settings](https://learn.chatgpt.com/docs/agent-configuration/subagents),
 [CLI reference](https://learn.chatgpt.com/docs/cli-reference).

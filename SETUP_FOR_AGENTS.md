@@ -1,4 +1,4 @@
-# Setup contract for an AI assistant
+# Setup for AI assistants
 
 1. Read README.md, MODEL_MAP.md and docs/library.md. Identify the directory containing
    the user's old Partition library, if any. Never include private data in Git.

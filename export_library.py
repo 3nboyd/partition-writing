@@ -6,7 +6,7 @@ import tempfile
 import uuid
 import partition as core
 
-EXPORT_VERSION = 2
+EXPORT_VERSION = 3
 
 INSTRUCTIONS = '''Use 00-WRITING-MAP.md to choose the writing style matching my current task and audience, then consult that style's guide and samples. Keep academic, professional, personal and creative voices distinct. Infer the suitable style from the request; ask only when the distinction matters and remains unclear. Do not require a special prompt format on every request.
 
@@ -36,9 +36,9 @@ def export(service):
             def put(rel,value):
                 p=core.safe_path(temp,rel);core.write(p,value)
             put('PROJECT INSTRUCTIONS.txt',INSTRUCTIONS)
-            put('START HERE.md','''# My writing references
+            put('START HERE.md','''# Writing references
 
-I use this folder to give ChatGPT references from my own writing. Samples and guides are grouped by style; background is separate.
+This folder collects writing samples and style guides for a ChatGPT Project. Samples are grouped by style, with background material kept separately.
 
 ## ChatGPT setup
 
