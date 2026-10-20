@@ -2,7 +2,7 @@
 
 Checked 2026-10-20.
 
-- 89 automated tests passed locally. CI repeats them on Python 3.11 and 3.13.
+- 91 automated tests passed locally. CI repeats them on Python 3.11 and 3.13.
 - Public tracked-tree audit passed, including checks for private/generated paths, credentials and machine-specific paths.
 - Browser test uploaded academic and personal fixtures together, ran the one-button model analysis, produced distinct guides and copied an editing prompt containing the task and matching sample.
 - A separate local library migration preserved every content file byte-for-byte; original source storage remained unchanged. Personal data was excluded from the public tree.

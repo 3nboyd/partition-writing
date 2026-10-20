@@ -1,4 +1,6 @@
 import base64
+import contextlib
+import io
 import copy
 import json
 from pathlib import Path
@@ -21,6 +23,19 @@ class Tests(unittest.TestCase):
         'styles':[{'id':'academic','guide':'A guide grounded in the supplied analytical writing samples and their organization.','new_prompt':'Write a new academic essay for [audience] on [task] using verified [sources].','edit_prompt':'Edit my draft while preserving its meaning, claims and verified source citations.','source_ids':[d['id'] for d in docs]}]}
     def build(self,docs):
         with patch.object(self.lib,'ask_model',return_value=self.result(docs)):return self.lib.build()
+    def test_migration_keeps_ids_and_original_bytes(self):
+        d=self.upload();dest=self.root/'fresh-project';dest.mkdir()
+        original=self.lib.path(d['original']).read_bytes()
+        with contextlib.redirect_stdout(io.StringIO()):code=w.main(['import-partition','--project',str(dest),str(self.root)])
+        self.assertEqual(code,0)
+        copied=dest/'.partition/private'/d['original'];self.assertEqual(copied.read_bytes(),original)
+        self.assertEqual(json.loads((dest/'.partition/private/onboarding/setup.json').read_text())['library'][0]['id'],d['id'])
+        self.assertEqual(self.lib.path(d['original']).read_bytes(),original)
+    def test_migration_conflict_preflights_before_copying(self):
+        d=self.upload();dest=self.root/'conflicting-project';dest.mkdir();target=dest/'.partition/private/preferences.md';core.write(target,'My different preferences.')
+        with contextlib.redirect_stderr(io.StringIO()):code=w.main(['import-partition','--project',str(dest),str(self.root)])
+        self.assertEqual(code,1);self.assertEqual(target.read_text(),'My different preferences.')
+        self.assertFalse((dest/'.partition/private'/d['original']).exists())
     def test_history_is_excluded_from_context_search(self):
         core.write(self.lib.path('writing/history/old/guide.md'),'Historicalsecrettoken must not be searched as active context.')
         self.assertEqual(core.context_search(self.root,'Historicalsecrettoken'),[])
