@@ -35,7 +35,7 @@ class Library(ui.Onboarding):
 
     def public_state(self):
         result=super().public_state()
-        result.update({'writing_preferences':self.path('writing/preferences.md').read_text() if self.path('writing/preferences.md').exists() else '', 'analysis':self.analysis(),'job':self.job,'styles':STYLES,'model':MODEL,'effort':EFFORT})
+        result.update({'writing_preferences':self.path('writing/preferences.md').read_text() if self.path('writing/preferences.md').exists() else '', 'analysis':self.analysis(),'job':self.job,'styles':STYLES,'model':MODEL,'effort':EFFORT,'export_path':str(self.root/'My Writing')})
         return result
 
     def upload(self,body):
@@ -120,6 +120,7 @@ class Library(ui.Onboarding):
         if not records: raise core.PartitionError('Upload at least one document first.')
         previous=self.analysis()
         if not force and previous.get('fingerprint')==fingerprint:
+            self.export_folder()
             return {'unchanged':True,'styles':len(previous['styles']),'documents':len(records)}
         self.job={'status':'running','message':f'Reading {len(records)} documents and building distinct writing guides…'}
         source=[]
@@ -176,11 +177,29 @@ Use relevant explicit user guidance before stylistic observations. Background do
                             if self.path(rel).exists():
                                 core.write(self.path(f'writing/history/{stamp}/{rel}'),self.path(rel).read_bytes());self.path(rel).unlink()
                 for rel,content in planned.items(): core.write(self.path(rel),content)
+            self.export_folder()
             self.job={'status':'done','message':f'Organized {len(records)} documents. Built {len(result["styles"])} writing guides.'}
             return {'documents':len(records),'styles':len(result['styles']),'built_at':result['built_at']}
         except Exception:
-            self.job={'status':'error','message':'Analysis did not finish. Your originals and previous guides are preserved.'}
+            self.job={'status':'error','message':'The operation did not finish. Your originals and previous versions are preserved.'}
             raise
+
+    def export_folder(self):
+        from export_library import export
+        return export(self)
+
+    def open_folder(self):
+        result=self.export_folder()
+        import sys
+        if sys.platform=='darwin':command=['open',result['path']]
+        elif sys.platform=='win32':
+            import os
+            os.startfile(result['path'])
+            return result
+        else:command=['xdg-open',result['path']]
+        try: subprocess.Popen(command,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        except OSError as exc:raise core.PartitionError('The folder is ready at '+result['path']+'. Open it in your file manager.') from exc
+        return result
 
     def start_build(self,force=False):
         with self.lock:
@@ -241,7 +260,7 @@ Use relevant explicit user guidance before stylistic observations. Background do
 
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='action',required=True)
-    for name in ['serve','build','prompt','status','import-partition']:
+    for name in ['serve','build','export','prompt','status','import-partition']:
         a=sub.add_parser(name);a.add_argument('--project',default='.')
         if name=='serve':
             a.add_argument('--port',type=int,default=8767);a.add_argument('--no-open',action='store_true');a.add_argument('--bootstrap',action='store_true')
@@ -270,6 +289,7 @@ def main(argv=None):
         if not (root/'.partition/state.json').exists(): initialize(root)
         library=Library(root)
         if args.action=='build': print(core.dump(library.build(args.force)))
+        elif args.action=='export': print(core.dump(library.export_folder()))
         elif args.action=='prompt':print(library.bundle(vars(args))['text'])
         else:print(core.dump({'documents':len(library.data()['library']),'guides':[s['id'] for s in library.analysis()['styles']],'built_at':library.analysis()['built_at']}))
         return 0

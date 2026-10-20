@@ -2,7 +2,7 @@
 
 Checked 2026-10-20.
 
-- 91 automated tests passed locally. CI repeats them on Python 3.11 and 3.13.
+- 100 automated tests passed locally. CI repeats them on Python 3.11 and 3.13.
 - Public tracked-tree audit passed, including checks for private/generated paths, credentials and machine-specific paths.
 - Browser test uploaded academic and personal fixtures together, ran the one-button model analysis, produced distinct guides and copied an editing prompt containing the task and matching sample.
 - A separate local library migration preserved every content file byte-for-byte; original source storage remained unchanged. Personal data was excluded from the public tree.
@@ -11,3 +11,5 @@ Checked 2026-10-20.
 
 These checks establish observed behavior, not a guarantee of perfect model judgments.
 Review uncertain classifications, and use task-specific checks for generated work.
+
+- Folder export tests verify unchanged original copies, category separation, exclusion of uncertain authorship, reusable ChatGPT project instructions, stale-analysis rejection, export ownership and private export history.

@@ -48,3 +48,20 @@ personal voice guide for an empty category. When writing elsewhere, adapt to the
 specific subgenre, current task and audience instead of imposing academic voice
 on a personal message. Private histories and old legacy active references survive;
 consult the current writing/library.json rather than broad searches through backups.
+
+## Portable organized folder
+
+`My Writing/` in the project root is a generated private export, ignored by Git.
+Each current style has a guide plus original and extracted samples. Background
+and Needs review remain separate. "Upload to ChatGPT" consolidates the guide and
+full text of confidently attributed samples into one Markdown file per style,
+plus a writing map with saved guidance and a separate background file when present.
+Uncertain authorship never enters this upload set. Use PROJECT INSTRUCTIONS.txt
+once in a ChatGPT Project, then write normally in its chats.
+
+Rebuild creates this folder automatically. `writing.py export` creates it from an
+already-current analysis without another model request. The old folder moves to
+private `writing/export-history/` before replacement. An unrecognized existing
+My Writing folder is preserved and causes a clear error. Generated folder edits
+belong in source preferences/documents instead. ChatGPT source uploads are manual
+and are not live-synced. No private files are published by export.

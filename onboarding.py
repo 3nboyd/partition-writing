@@ -479,6 +479,10 @@ class Handler(BaseHTTPRequestHandler):
                 result = service.upload(data)
             elif self.path == "/api/build":
                 result = service.start_build(data.get("force") is True)
+            elif self.path == "/api/export":
+                result = service.export_folder()
+            elif self.path == "/api/open-library":
+                result = service.open_folder()
             elif self.path == "/api/bundle":
                 result = service.bundle(data)
             elif self.path == "/api/override":

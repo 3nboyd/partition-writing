@@ -14,9 +14,15 @@
    excerpts through Codex; the user's request to analyze their samples supplies that scope.
 6. Confirm all documents are accounted for, category separation and guide sources.
    Résumés/references must not teach voice. Correct ambiguous types if needed.
-7. Copy/download a style-specific prompt. In an assistant with filesystem access,
-   read AGENTS.md and then only relevant private guides/sources. In a chat without
-   filesystem access, paste the exported prompt. A path alone does not transfer files.
+7. Run `python3 writing.py export` if the existing library predates folder export.
+   Verify My Writing contains organized originals, style guides, a writing map and
+   ChatGPT upload files. Never add this generated private folder to Git.
+8. Help the human create a ChatGPT Project, upload the individual files inside
+   "Upload to ChatGPT", and paste PROJECT INSTRUCTIONS.txt into project instructions.
+   Then the human writes directly in ChatGPT; do not require a prompt export per task.
+   This does not upload or sync the local folder automatically. Updating samples
+   requires rebuilding and replacing the affected project sources.
+
 
 Do not assert direct access to ChatGPT memory. Use a human-supplied summary with
 selected items. Preserve uncertainty and source distinctions. Do not infer facts

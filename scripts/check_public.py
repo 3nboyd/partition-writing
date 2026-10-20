@@ -9,7 +9,7 @@ r=subprocess.run(['git','ls-files','-z'],cwd=root,capture_output=True,check=True
 files=[p for p in r.stdout.decode().split('\0') if p];errors=[]
 for rel in files:
     p=Path(rel)
-    if any(s in p.parts for s in ['private','__pycache__','onboarding-runtime','uploads','history','.venv']) or rel.startswith(('.partition/','.relay/')) or p.name.startswith('.env') or p.suffix.lower() in ['.pdf','.docx','.png','.jpg','.zip','.log']:
+    if any(s in p.parts for s in ['private','__pycache__','onboarding-runtime','uploads','history','.venv']) or rel.startswith(('.partition/','.relay/','My Writing/')) or p.name.startswith('.env') or p.suffix.lower() in ['.pdf','.docx','.png','.jpg','.zip','.log']:
         errors.append('Private, generated, or binary file tracked: '+rel)
         continue
     f=root/p

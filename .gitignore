@@ -23,3 +23,6 @@ __pycache__/
 /.relay/
 /.agents/
 /.codex/
+
+# Generated personal writing folder and ChatGPT source files.
+/My Writing/

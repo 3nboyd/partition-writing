@@ -1,12 +1,12 @@
 # Partition Writing
 
-Upload your writing. Build distinct style guides. Use them in any AI chat.
+Upload your writing. Get an organized reference folder. Write directly in ChatGPT.
 
 Partition Writing is a local sample library with automatic document organization:
 PDFs, DOCX, text and Markdown go in together. One button asks your signed-in Codex
 to distinguish academic, personal, professional and creative writing from résumés
-and background references. It creates grounded style guides and separate prompts
-for new writing and editing. Ambiguous documents go to **Needs review**.
+and background references. It creates grounded style guides and a portable folder of originals, extracted text,
+and ready-to-upload ChatGPT reference files. Ambiguous documents go to **Needs review**.
 
 The separate [Partition Code](https://github.com/3nboyd/partition-code) repository
 handles coding orchestration. This public repository contains application source
@@ -29,8 +29,35 @@ browser opens automatically (default port 8767). Keep the terminal running.
 1. Drop all your files or choose a batch. No labels required.
 2. Click **Organize & build guides**. The button shows progress; you can leave and
    reopen the page while the same server continues running.
-3. Open a style. Choose **New writing** or **Edit my draft**, optionally describe
-   the task, and copy or download the prompt for your current chat.
+3. Open **My Writing** using **Open my writing folder**.
+4. Create a ChatGPT Project, add the files inside **Upload to ChatGPT** as project
+   sources, and paste **PROJECT INSTRUCTIONS.txt** into its project instructions once.
+5. Write normally in chats inside that project. ChatGPT uses the writing map to
+   choose the relevant style; no per-request prompt template is needed.
+
+```text
+My Writing/
+  START HERE.md
+  PROJECT INSTRUCTIONS.txt
+  Upload to ChatGPT/       # select these individual Markdown files together
+    00-WRITING-MAP.md
+    STYLE-academic.md
+    STYLE-professional.md
+    BACKGROUND.md          # when provided
+  Academic/                # only styles supported by your actual samples
+    STYLE GUIDE.md
+    Samples/               # unchanged copies of original uploads
+    Text/                  # complete extracted samples
+  Professional/
+  Background/
+  Needs review/            # excluded from suggested ChatGPT uploads
+```
+
+ChatGPT Projects share their sources and project instructions across their chats;
+they do not automatically read or sync a local folder. After adding samples,
+rebuild and replace the affected project source files. See the
+[official project documentation](https://learn.chatgpt.com/docs/projects).
+The folder is local and ignored by Git. Review its contents before uploading.
 
 No model weights are trained. Guides and curated excerpts supply context. Analysis
 sends excerpts and relevant saved guidance to the selected model through Codex;
@@ -78,8 +105,11 @@ pretending five papers establish a complete personality.
 python3 writing.py status
 python3 writing.py build             # skips unchanged libraries
 python3 writing.py build --force     # intentionally regenerate guides
-python3 writing.py prompt --style academic --mode edit "Revise this draft for my seminar"
+python3 writing.py export            # recreate/open-ready folder without another model call
 ```
+
+Legacy per-request prompt export remains available through `writing.py prompt`,
+but it is not required for the ChatGPT Project workflow.
 
 Another assistant can follow [SETUP_FOR_AGENTS.md](SETUP_FOR_AGENTS.md).
 [MODEL_MAP.md](MODEL_MAP.md) explains the analysis model, limits and changes.

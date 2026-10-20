@@ -8,8 +8,10 @@ unrelated samples, raw memory imports, historical backups or other writing tones
 Current user instructions override stylistic observations. Never infer biographical
 facts from fiction, academic arguments or quoted sources. Preserve meaning in edits,
 ask for missing facts in new writing, and never fabricate citations or plagiarize samples.
-If these local files are unavailable, ask for an exported style prompt; do not claim
-to have read inaccessible files. This is context-based style adaptation, not training.
+For ordinary ChatGPT Projects, use the generated My Writing folder, its Upload to
+ChatGPT files and reusable project instructions. Do not require per-request prompt
+copying. If local files are unavailable, use the uploaded style references; do not
+claim to have read inaccessible files. This is context-based style adaptation, not training.
 
 For application maintenance, read README.md, SETUP_FOR_AGENTS.md and docs/library.md.
 Preserve the compatibility private storage path and IDs during migration. Originals

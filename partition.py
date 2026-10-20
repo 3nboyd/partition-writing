@@ -366,7 +366,7 @@ def context_search(root: Path, query: str, scope: str | None = None, limit: int 
     for file in sorted(private.rglob("*.md")):
         rel = file.relative_to(root).as_posix()
         relative = file.relative_to(private)
-        if relative.parts[0] in {"onboarding", "onboarding-runtime"} or relative.parts[:2] == ("writing", "history"):
+        if relative.parts[0] in {"onboarding", "onboarding-runtime"} or relative.parts[:2] == ("writing", "history") or relative.parts[:2] == ("writing", "export-history"):
             continue  # Draft uploads, unchecked imports, backups, and the setup environment are not active context.
         if file.is_symlink() or any((private / parent).is_symlink() for parent in relative.parents):
             continue
