@@ -1,0 +1,18 @@
+{
+  "fast": {
+    "model": "gpt-6-luna",
+    "effort": "high"
+  },
+  "balanced": {
+    "model": "gpt-6.1-sol",
+    "effort": "low"
+  },
+  "deep": {
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+  },
+  "frontier": {
+    "model": "gpt-6-astra",
+    "effort": "low"
+  }
+}

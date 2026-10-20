@@ -1,0 +1,2 @@
+# Optional local onboarding UI dependency; the core CLI remains standard-library only.
+pypdf==6.21.1

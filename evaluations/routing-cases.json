@@ -1,0 +1,122 @@
+[
+  {
+    "prompt": "Explain gravity simply",
+    "hint": "general"
+  },
+  {
+    "prompt": "Help me plan my week",
+    "hint": "general"
+  },
+  {
+    "prompt": "Write an essay in my voice",
+    "hint": "general"
+  },
+  {
+    "prompt": "Edit this letter",
+    "hint": "general"
+  },
+  {
+    "prompt": "Create a poem about winter",
+    "hint": "general"
+  },
+  {
+    "prompt": "Plan a trip to Chicago",
+    "hint": "general"
+  },
+  {
+    "prompt": "Compare current laptop prices",
+    "hint": "general"
+  },
+  {
+    "prompt": "Analyze this spreadsheet",
+    "hint": "general"
+  },
+  {
+    "prompt": "Teach me fractions",
+    "hint": "general"
+  },
+  {
+    "prompt": "Help me make a decision",
+    "hint": "general"
+  },
+  {
+    "prompt": "Create a presentation outline",
+    "hint": "general"
+  },
+  {
+    "prompt": "Summarize these meeting notes",
+    "hint": "general"
+  },
+  {
+    "prompt": "Remember that I prefer short answers",
+    "hint": "general"
+  },
+  {
+    "prompt": "Forget my old preference",
+    "hint": "general"
+  },
+  {
+    "prompt": "What does this image show?",
+    "hint": "general"
+  },
+  {
+    "prompt": "Explain this Python function",
+    "hint": "software"
+  },
+  {
+    "prompt": "Debug this code",
+    "hint": "software"
+  },
+  {
+    "prompt": "Review my repository",
+    "hint": "software"
+  },
+  {
+    "prompt": "Find this SQL bug",
+    "hint": "software"
+  },
+  {
+    "prompt": "Design an API",
+    "hint": "software"
+  },
+  {
+    "prompt": "Write unit tests",
+    "hint": "software"
+  },
+  {
+    "prompt": "Fix the compiler error",
+    "hint": "software"
+  },
+  {
+    "prompt": "Explain git rebase",
+    "hint": "software"
+  },
+  {
+    "prompt": "Analyze software architecture",
+    "hint": "software"
+  },
+  {
+    "prompt": "Improve this TypeScript component",
+    "hint": "software"
+  },
+  {
+    "prompt": "Build an API and write its user guide",
+    "hint": "mixed"
+  },
+  {
+    "prompt": "Research libraries for my Python project",
+    "hint": "mixed"
+  },
+  {
+    "prompt": "Debug the code and draft an email explaining the fix",
+    "hint": "mixed"
+  },
+  {
+    "prompt": "Analyze this SQL query and spreadsheet",
+    "hint": "mixed"
+  },
+  {
+    "prompt": "Write a story about a software engineer",
+    "hint": "mixed"
+  }
+]
