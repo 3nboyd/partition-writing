@@ -22,6 +22,10 @@ def configuration(root,python,codex):
             'PartitionManagedBy':'partition-macos','PartitionSource':str(root),'PartitionPython':str(python),
             'PartitionCodex':str(codex),'PartitionMode':mode}
 
+def backup_application(target,backup):
+    backup.parent.mkdir(parents=True,exist_ok=True)
+    shutil.move(str(target),str(backup))
+
 def install(root,applications,python,codex):
     config=configuration(root,python,codex)
     if sys.platform!='darwin':raise ValueError('This installer requires macOS.')
@@ -40,7 +44,7 @@ def install(root,applications,python,codex):
         subprocess.run(['swiftc','-O','-framework','AppKit',str(root/'macos/Launcher.swift'),'-o',str(binary)],check=True)
         if target.exists():
             backup=Path.home()/'Library/Application Support/Partition/Backups'/uuid.uuid4().hex/target.name
-            backup.parent.mkdir(parents=True,exist_ok=True);target.replace(backup)
+            backup_application(target,backup)
         app.replace(target)
     return target
 

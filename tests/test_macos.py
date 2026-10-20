@@ -1,3 +1,4 @@
+import errno
 import importlib.util
 from pathlib import Path
 import subprocess
@@ -21,6 +22,12 @@ class MacSetupTests(unittest.TestCase):
         self.assertEqual(cfg['PartitionMode'],'code');self.assertEqual(cfg['PartitionCodex'],str(self.codex));self.assertEqual(cfg['CFBundleName'],'Partition Code')
     def test_writing_configuration(self):
         (self.root/'writing.py').touch();self.assertEqual(installer.configuration(self.root,Path(sys.executable),self.codex)['PartitionMode'],'writing')
+    def test_backup_supports_a_different_filesystem(self):
+        app=self.root/'existing.app';app.mkdir();(app/'binary').write_bytes(b'original app')
+        backup=self.root/'another-volume/backup.app'
+        with patch.object(installer.shutil.os,'rename',side_effect=OSError(errno.EXDEV,'Cross-device move')):
+            installer.backup_application(app,backup)
+        self.assertEqual((backup/'binary').read_bytes(),b'original app');self.assertFalse(app.exists())
     def test_invalid_repository_rejected(self):
         with self.assertRaises(ValueError):installer.configuration(self.root,Path(sys.executable),self.codex)
     def test_unmanaged_existing_app_is_preserved(self):
