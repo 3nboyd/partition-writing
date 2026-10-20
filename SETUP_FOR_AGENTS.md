@@ -10,7 +10,7 @@
 4. Run `python3 writing.py serve --bootstrap`. It binds only to loopback. Do not
    expose this personal library to a public host or reverse proxy.
 5. Verify status and document count. Do not re-upload duplicates or ask the human
-   to redo completed onboarding. Run Organize & build only when authorized to send
+   to redo completed onboarding. Run Organize folder only when authorized to send
    excerpts through Codex; the user's request to analyze their samples supplies that scope.
 6. Confirm all documents are accounted for, category separation and guide sources.
    Résumés/references must not teach voice. Correct ambiguous types if needed.

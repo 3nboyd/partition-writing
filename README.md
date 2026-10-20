@@ -1,20 +1,16 @@
 # Partition Writing
 
-Upload your writing. Get an organized reference folder. Write directly in ChatGPT.
+I made Partition Writing to collect my writing samples, style guides, and background
+in one organized reference folder for ChatGPT. I wanted to use my own work as context
+and do the writing directly in ChatGPT.
 
-Partition Writing is a local sample library with automatic document organization:
-PDFs, DOCX, text and Markdown go in together. One button asks your signed-in Codex
-to distinguish academic, personal, professional and creative writing from résumés
-and background references. It creates grounded style guides and a portable folder of originals, extracted text,
-and ready-to-upload ChatGPT reference files. Ambiguous documents go to **Needs review**.
+I upload my files here, let Codex organize them by style, and add the prepared
+references to a ChatGPT Project. Anyone can use it with their own samples; a fresh
+installation starts empty.
 
-The separate [Partition Code](https://github.com/3nboyd/partition-code) repository
-handles coding orchestration. This public repository contains application source
-and empty templates, never the user's private sample library.
+## Setup
 
-## Start
-
-Requires Python 3.11+ and a recent Codex CLI. Sign in with `codex login` first.
+Install Python 3.11+ and Codex CLI, then sign in with `codex login`.
 
 ```sh
 git clone https://github.com/3nboyd/partition-writing.git
@@ -22,101 +18,73 @@ cd partition-writing
 python3 writing.py serve --bootstrap
 ```
 
-On macOS, double-click **Start Writing.command**. Bootstrap creates an isolated
-Python environment for PDF extraction; it does not alter system Python. The local
-browser opens automatically (default port 8767). Keep the terminal running.
+On macOS, I can also use **Start Writing.command**. Keep its terminal open while
+using the upload page.
 
-1. Drop all your files or choose a batch. No labels required.
-2. Click **Organize & build guides**. The button shows progress; you can leave and
-   reopen the page while the same server continues running.
-3. Open **My Writing** using **Open my writing folder**.
-4. Create a ChatGPT Project, add the files inside **Upload to ChatGPT** as project
-   sources, and paste **PROJECT INSTRUCTIONS.txt** into its project instructions once.
-5. Write normally in chats inside that project. ChatGPT uses the writing map to
-   choose the relevant style; no per-request prompt template is needed.
+## Use the reference folder
+
+1. Upload PDF, DOCX, TXT, or Markdown files. A batch is fine.
+2. Click **Organize folder**, then **Open folder**.
+3. In a ChatGPT Project, add the individual files inside **Upload to ChatGPT** as
+   sources and paste **PROJECT INSTRUCTIONS.txt** into the project instructions.
+4. Write normally in that project. The writing map points ChatGPT to the relevant style.
 
 ```text
 My Writing/
   START HERE.md
   PROJECT INSTRUCTIONS.txt
-  Upload to ChatGPT/       # select these individual Markdown files together
-    00-WRITING-MAP.md
-    STYLE-academic.md
-    STYLE-professional.md
-    BACKGROUND.md          # when provided
-  Academic/                # only styles supported by your actual samples
-    STYLE GUIDE.md
-    Samples/               # unchanged copies of original uploads
-    Text/                  # complete extracted samples
+  Upload to ChatGPT/       # writing map, style references, relevant background
+  Academic/               # original samples, extracted text, and a style guide
   Professional/
   Background/
-  Needs review/            # excluded from suggested ChatGPT uploads
+  Needs review/           # uncertain material stays out of the upload set
 ```
 
-ChatGPT Projects share their sources and project instructions across their chats;
-they do not automatically read or sync a local folder. After adding samples,
-rebuild and replace the affected project source files. See the
-[official project documentation](https://learn.chatgpt.com/docs/projects).
-The folder is local and ignored by Git. Review its contents before uploading.
+The folders reflect the samples provided. Academic, personal, professional, and
+creative writing stay separate; résumés are background. I can correct a category
+under **Adjust** and rebuild.
 
-No model weights are trained. Guides and curated excerpts supply context. Analysis
-sends excerpts and relevant saved guidance to the selected model through Codex;
-local storage does not mean offline inference. Codex plan usage and account limits
-apply; an API key is not required for supported ChatGPT sign-in. This app cannot
-read ChatGPT saved memory automatically. An optional prompt helps you request a
-summary in ChatGPT, review individual items, and import selected context.
+The folder does not automatically sync with ChatGPT. When I add samples or change
+preferences, I rebuild it and replace the affected project files. Once the references
+are uploaded, I can close Partition and keep working in ChatGPT.
+[How ChatGPT Projects use shared files](https://learn.chatgpt.com/docs/projects).
 
-## Existing Partition library: no repeat onboarding
+## Files and context
+
+My originals stay unchanged. The generated **My Writing** folder and private storage
+are excluded from Git; this public repository contains code and synthetic test data.
+
+Codex receives sample excerpts and saved guidance when organizing the library.
+Its account limits apply. This creates reference files and guides, not trained model
+weights. ChatGPT memory can be added through a summary I paste and review; it is
+not read automatically.
+
+## Bring an existing Partition library
+
+Run this before opening the new installation for the first time:
 
 ```sh
-# Before the first serve in the new clone:
 python3 writing.py import-partition /path/to/old/partition
 python3 writing.py serve --bootstrap
 ```
 
-Migration copies the old `.partition/private/` files, IDs, uploads, profiles,
-preferences and reviewed memories. It leaves the source untouched and refuses
-conflicting destination data. The old private storage name is deliberately retained
-for compatibility. Runtime environments and server status are recreated. Back up
-the old project before migration; this repository's .gitignore protects the new copy.
+The import copies existing uploads, preferences, profiles, and reviewed memories.
+It leaves the old library intact and refuses conflicting destination files.
 
-Your originals stay in `.partition/private/onboarding/uploads/`. Organized text
-copies, guides and prompts live in `.partition/private/writing/`. Private files
-are ignored by Git and served only through an authenticated loopback UI. They are
-not encryption-protected by this app: use normal device security and backups.
-See [docs/library.md](docs/library.md) for the complete storage contract.
+## More detail
 
-## Your guidance comes first
-
-Preferences & memory is optional. Existing preferences, custom voice profiles and
-instructions survive migration. Write your durable writing preferences in the UI;
-rebuild once to incorporate them. Old source claims, fictional experiences, résumé
-facts and academic citations must not become invented facts in new work.
-
-Guides distinguish subgenres inside a category (for example, discussion posts
-versus research papers). You can correct any document's type/category under
-**Adjust**, then rebuild. A résumé is background, not a voice sample. Uncertain
-authorship stays under review. Guides describe evidence and uncertainty rather than
-pretending five papers establish a complete personality.
-
-## Terminal and AI setup
+- [Setup for an AI assistant](SETUP_FOR_AGENTS.md)
+- [Folder layout and storage](docs/library.md)
+- [Model choice](MODEL_MAP.md)
+- [Coding orchestrator](https://github.com/3nboyd/partition-code)
 
 ```sh
 python3 writing.py status
-python3 writing.py build             # skips unchanged libraries
-python3 writing.py build --force     # intentionally regenerate guides
-python3 writing.py export            # recreate/open-ready folder without another model call
+python3 writing.py build
+python3 writing.py export  # prepare the folder from an existing analysis
 ```
 
-Legacy per-request prompt export remains available through `writing.py prompt`,
-but it is not required for the ChatGPT Project workflow.
-
-Another assistant can follow [SETUP_FOR_AGENTS.md](SETUP_FOR_AGENTS.md).
-[MODEL_MAP.md](MODEL_MAP.md) explains the analysis model, limits and changes.
-The compatibility `partition.py` module provides local memory/context utilities;
-new users should use `writing.py` and the writing UI.
-
-## Development
+For development:
 
 ```sh
 python3 -m venv .venv
@@ -125,8 +93,3 @@ python3 -m venv .venv
 node --check onboarding-web/app.js
 python3 scripts/check_public.py
 ```
-
-CI tests supported Python versions. No credentials or real personal samples are
-needed for the automated suite. Generated guides are versioned privately before
-replacement. Archives preserve originals locally. Rebuild after archiving so new
-guides reflect the reduced corpus.

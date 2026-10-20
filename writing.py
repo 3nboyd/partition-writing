@@ -144,7 +144,7 @@ Use relevant explicit user guidance before stylistic observations. Background do
                     if any(d[k]!=overrides[d['id']][k] for k in ['kind','style']): raise core.PartitionError('The model did not honor your classification correction. Retry.')
             with self.lock:
                 # A concurrent upload or preference change must not get silently marked analyzed.
-                if self.fingerprint(self.data())!=fingerprint: raise core.PartitionError('The library changed during analysis. Run Organize & build again to include the changes.')
+                if self.fingerprint(self.data())!=fingerprint: raise core.PartitionError('The library changed during analysis. Run Organize folder again to include the changes.')
                 stamp=uuid.uuid4().hex
                 planned={}
                 lookup={r['id']:r for r in records}

@@ -6,6 +6,8 @@ import tempfile
 import uuid
 import partition as core
 
+EXPORT_VERSION = 2
+
 INSTRUCTIONS = '''Use 00-WRITING-MAP.md to choose the writing style matching my current task and audience, then consult that style's guide and samples. Keep academic, professional, personal and creative voices distinct. Infer the suitable style from the request; ask only when the distinction matters and remains unclear. Do not require a special prompt format on every request.
 
 My current instructions take precedence over observed style. Respect relevant saved guidance in the map. For editing, preserve meaning and verified facts unless I request substantive changes. For new writing, ask for missing facts rather than inventing them. Adapt to the requested subgenre and audience instead of copying a sample's structure mechanically.
@@ -21,7 +23,7 @@ def export(service):
         data=service.data(); analysis=service.analysis(); fingerprint=service.fingerprint(data)
         if not analysis.get('built_at') or analysis.get('fingerprint')!=fingerprint:
             raise core.PartitionError('Organize the current library first so the folder reflects all uploads and preferences.')
-        export_fingerprint=core.digest(core.dump({'analysis':analysis,'source':fingerprint}).encode())
+        export_fingerprint=core.digest(core.dump({'analysis':analysis,'source':fingerprint,'format':EXPORT_VERSION}).encode())
         target=destination(service)
         if target.exists():
             marker=core.safe_path(service.root,'My Writing/.partition-export.json')
@@ -34,24 +36,24 @@ def export(service):
             def put(rel,value):
                 p=core.safe_path(temp,rel);core.write(p,value)
             put('PROJECT INSTRUCTIONS.txt',INSTRUCTIONS)
-            put('START HERE.md','''# Your writing library
+            put('START HERE.md','''# My writing references
 
-Write directly in ChatGPT. Partition only prepares and organizes your reference material.
+I use this folder to give ChatGPT references from my own writing. Samples and guides are grouped by style; background is separate.
 
-## One-time setup for a regular ChatGPT Project
+## ChatGPT setup
 
-1. Create a private ChatGPT Project for your writing.
-2. Add the Markdown files INSIDE "Upload to ChatGPT" to the project's Sources. Select the individual files together; do not upload this folder or an archive as though it were a supported file source.
-3. Paste PROJECT INSTRUCTIONS.txt into the project's instructions.
-4. Start chats inside that project and ask for writing or edits normally. ChatGPT can choose the relevant style from the writing map. No new template or copied prompt is required each time.
+1. Create a ChatGPT Project for writing.
+2. Add the individual files inside "Upload to ChatGPT" to its Sources.
+3. Paste PROJECT INSTRUCTIONS.txt into its project instructions.
+4. Write normally in chats inside that project.
 
-The Academic, Professional and other category folders below contain your organized originals and guides for your own use. The upload files combine each style's full extracted samples and guide, reducing repeated setup. Background is separate. Needs review material is excluded from the suggested ChatGPT upload set.
+No new template or copied prompt is required each time. ChatGPT uses the writing map to find the relevant guide and samples.
 
-ChatGPT Projects do not automatically sync this local folder. After adding samples or changing preferences, rebuild here and replace the affected project source files. Review your material before uploading it; adding these files shares them with ChatGPT. Project file limits depend on your account. Local-folder access in supported desktop Work projects is a different option, not assumed by this export.
+After adding samples or changing preferences, organize the folder again and replace the affected ChatGPT source files. This folder does not sync automatically.
 
-Source: https://learn.chatgpt.com/docs/projects
+Originals and extracted text are in the style folders. Needs review material stays out of the ChatGPT upload files. This generated folder is private and excluded from Git; review its contents before uploading.
 
-This folder is generated, private and excluded from Git. Edit source preferences or uploads in Partition. Rebuilds preserve the previous exported folder in local private export history before replacement.
+Project documentation: https://learn.chatgpt.com/docs/projects
 ''')
             lookup={d['id']:d for d in data['library']}; docs={d['id']:d for d in analysis['documents']}
             style_names={'academic':'Academic','personal':'Personal','professional':'Professional','creative':'Creative','needs-review':'Needs review'}
