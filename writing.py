@@ -13,6 +13,7 @@ import threading
 import uuid
 import onboarding as ui
 import partition as core
+from export_library import INSTRUCTIONS as PROJECT_INSTRUCTIONS
 
 STYLES = {'academic':'Academic','personal':'Personal','professional':'Professional','creative':'Creative','needs-review':'Needs review'}
 KINDS = ['sample','resume','reference']
@@ -35,7 +36,7 @@ class Library(ui.Onboarding):
 
     def public_state(self):
         result=super().public_state()
-        result.update({'writing_preferences':self.path('writing/preferences.md').read_text() if self.path('writing/preferences.md').exists() else '', 'analysis':self.analysis(),'job':self.job,'styles':STYLES,'model':MODEL,'effort':EFFORT,'export_path':str(self.root/'My Writing')})
+        result.update({'writing_preferences':self.path('writing/preferences.md').read_text() if self.path('writing/preferences.md').exists() else '', 'analysis':self.analysis(),'job':self.job,'styles':STYLES,'model':MODEL,'effort':EFFORT,'export_path':str(self.root/'My Writing'),'project_instructions':PROJECT_INSTRUCTIONS})
         return result
 
     def upload(self,body):

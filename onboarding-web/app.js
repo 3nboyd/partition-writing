@@ -41,7 +41,7 @@ async function copy(value){try{await navigator.clipboard.writeText(value);return
 function openStyle(id){selectedStyle=id;const s=state.analysis.styles.find(x=>x.id===id);text($('#dialog-title'),s.name+' writing');text($('#guide-content'),s.guide);$('#guide-dialog').showModal();}
 $('#close-dialog').onclick=()=>$('#guide-dialog').close();
 $('#open-folder').onclick=action(async()=>{await api('open-library',{});status('Your My Writing folder is open. Follow START HERE.md for the one-time ChatGPT setup.');});
-$('#copy-project-instructions').onclick=action(async()=>{const result=await api('export',{});await copy(result.instructions);text($('#copy-project-instructions'),'Project instructions copied ✓');});
+$('#copy-project-instructions').onclick=action(async()=>{await copy(state.project_instructions);text($('#copy-project-instructions'),'Project instructions copied ✓');});
 $('#save-preferences').onclick=action(async()=>{await api('preferences',{text:$('#preferences').value});status('Preferences saved. Build guides to include these changes.');});
 $('#memory-prompt').onclick=action(async()=>{await copy(state.memory_prompt);text($('#memory-prompt'),'Memory request copied ✓');});
 $('#preview-memory').onclick=action(async()=>{pendingMemory=(await api('memory/preview',{text:$('#memory').value})).items;const list=$('#memory-items');list.replaceChildren();for(const [index,item]of pendingMemory.entries()){const row=node('div','memory-item'),check=node('input');check.type='checkbox';check.id='memory-'+index;check.checked=item.selected;check.onchange=()=>item.selected=check.checked;const label=node('label','',item.text+(item.kind==='inferred'?' (uncertain)':''));label.htmlFor=check.id;row.append(check,label);list.append(row);}$('#save-memory').hidden=false;});
