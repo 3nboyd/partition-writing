@@ -36,10 +36,12 @@ new process. File changes during analysis reject that result instead of hiding a
 new upload. Run one server per project; do not edit private files concurrently in
 multiple processes. Model failures before persistence leave old guides active.
 
-The per-process browser token plus Host/Origin checks restrict local HTTP access.
-The app does not offer multi-user hosting, OCR, encryption at rest, model training,
-or a complete ChatGPT memory export. Prompt exports may contain personal guidance
-and short sample excerpts: review them before pasting into another service.
+The upload page is for local use by one person. A per-process browser token and
+Host/Origin checks restrict access. Private files use ordinary local storage, so
+their protection depends on your computer's account and disk security.
+
+Prompt exports may contain personal guidance and short sample excerpts: review
+them before pasting into another service.
 
 To edit an enduring style preference, use Preferences rather than editing generated
 guides that will be rebuilt. Existing manually authored profiles remain respected.
