@@ -178,7 +178,7 @@ def init(root: Path) -> dict:
     starters = {
         "preferences.md": "# My preferences\n\nAdd your preferred tone, detail level, working style, and accessibility needs here. This file contains preferences, not facts to invent.\n",
         "instructions.md": "# My instructions\n\nAdd your personal working instructions here. Keep source documents and examples in references/.\n",
-        "index.md": "# My context index\n\nList relevant reference and project files with a short description of when to read them. Paths are relative to this private directory.\n\nExample: references/voice.md — writing samples; use only when matching my voice.\n",
+        "index.md": "# My context index\n\nList relevant reference and project files with a short description of when to read them. Paths are relative to this private directory.\n\nExample: references/voice.md: writing samples; use only when matching my voice.\n",
     }
     for rel, content in starters.items():
         dest = private / rel
