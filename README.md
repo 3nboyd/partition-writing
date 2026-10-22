@@ -58,9 +58,12 @@ My Writing/
   Needs review/
 ```
 
-Only styles supported by the uploaded samples get guides. Résumés and references
-are kept as background, and uncertain material stays out of the ChatGPT upload set.
-Categories can be corrected under **Adjust** before rebuilding.
+Only styles supported by your writing samples get guides. **Background** holds
+material such as résumés and outside references: useful facts, not examples of
+your writing voice. **Needs review** holds files whose authorship or category is
+uncertain; these stay out of the ChatGPT upload set until reviewed.
+
+Use **Adjust** to correct a category, then organize the folder again.
 
 Originals remain unchanged. The generated folder, preferences, memories, and other
 private files are excluded from Git. This repository contains source code and
