@@ -59,8 +59,10 @@ plus a writing map with saved guidance and a separate background file when prese
 Uncertain authorship never enters this upload set. Use PROJECT INSTRUCTIONS.txt
 once in a ChatGPT Project, then write normally in its chats.
 
-Rebuild creates this folder automatically. `writing.py export` creates it from an
-already-current analysis without another model request. The old folder moves to
+`writing.py build` creates this folder after analyzing changed samples or guidance.
+If the library is unchanged, it reuses the analysis and rebuilds the folder.
+`writing.py export` only rebuilds the folder from an already-current analysis,
+without another model request. The old folder moves to
 private `writing/export-history/` before replacement. An unrecognized existing
 My Writing folder is preserved and causes a clear error. Generated folder edits
 belong in source preferences/documents instead. ChatGPT source uploads are manual

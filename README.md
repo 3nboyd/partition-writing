@@ -91,8 +91,14 @@ the source intact. Conflicting destination files are preserved rather than repla
 ```sh
 python3 writing.py status
 python3 writing.py build
-python3 writing.py export  # prepare the folder from an existing analysis
+python3 writing.py export
 ```
+
+`status` shows the document and guide counts. `build` analyzes new or changed
+samples and guidance, then rebuilds **My Writing**; it reuses the analysis if
+nothing has changed. `export` rebuilds the folder from an existing current
+analysis without another model request. To update files already in ChatGPT,
+replace the affected project sources after rebuilding.
 
 - [Setup for AI assistants](SETUP_FOR_AGENTS.md)
 - [Storage and folder layout](docs/library.md)
