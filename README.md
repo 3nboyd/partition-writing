@@ -18,8 +18,9 @@ cd partition-writing
 python3 writing.py serve --bootstrap
 ```
 
-The upload page opens in your browser. The first run installs PDF support in a
-local Python environment. Keep the terminal open while using the page.
+This starts a local server and opens its upload page in your browser. The first
+run prepares a local Python environment with PDF support. Keep this Terminal
+window open while using the page; closing the server stops the page's controls.
 
 ### On a Mac
 
