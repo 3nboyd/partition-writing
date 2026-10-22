@@ -33,9 +33,12 @@ in place; the launcher uses that copy. **Start Writing.command** also works.
 
 1. Upload PDF, DOCX, TXT, or Markdown files. You can select a batch.
 2. Click **Organize folder**, then **Open folder**.
-3. Create a ChatGPT Project. Add the individual files inside **Upload to ChatGPT**
-   as sources and paste **PROJECT INSTRUCTIONS.txt** into the project instructions.
-4. Start a chat in that project and write or edit as usual.
+3. Create a ChatGPT Project. In the generated **My Writing** folder, open
+   **Upload to ChatGPT** and add its individual files as the project's sources.
+4. Open **PROJECT INSTRUCTIONS.txt** from **My Writing**. Copy its text into the
+   ChatGPT project's instructions.
+5. Start a chat in that project and write or edit as usual. The files supply your
+   references; the pasted instructions explain how to use them.
 
 The writing map helps ChatGPT choose the right style for the task. Once the files
 are uploaded, Partition can be closed. After adding samples or changing preferences,
